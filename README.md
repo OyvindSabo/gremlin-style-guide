@@ -3,6 +3,8 @@
 # The Gremlin Style Guide
 A style guide for the Gremlin query language
 
+![Gremlint AMC Gremlin 1920x1080.png](https://cdn.steemitimages.com/DQmSYAxsBQJPxfxzA5HFXzsPSmTTQiNGoeWY143WXpjLQ4X/Gremlint%20AMC%20Gremlin%201920x1080.png)
+
 ### Use soft tabs (spaces) for indentation
 This ensures that your code looks the same for anyone, regardless of their text editor settings.
 ```Java
