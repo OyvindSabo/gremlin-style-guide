@@ -33,7 +33,7 @@ g.V().hasLabel('movie').
 ```
 
 ### Add linebreak after punctuation
-While adding the linebreak before the punctuation looks good in most cases, it introduces alignment problems when not all lines start with a punctuation. You never know if the next line should be indented relative to the punctuation of the previous line or the method of the previous line.
+While adding the linebreak before the punctuation looks good in most cases, it introduces alignment problems when not all lines start with a punctuation. You never know if the next line should be indented relative to the punctuation of the previous line or the method of the previous line. Adding the unctuation before the linebreak also means that you can know if you have reached the end of the query without reading the next line.
 ```Java
 // Bad
 g.V().by(
@@ -59,4 +59,28 @@ g.V().by(
 g.V().by(
         inE('category').
         count())
+```
+
+### Add linebreak and indentation of two spaces for nested methods
+```Java
+// Bad
+g.V().hasLabel('movie').
+      as('a','b').
+      where(inE('rated').count().is(10))
+
+// Bad
+g.V().hasLabel('movie').
+      as('a','b').
+      where(
+      inE('rated').
+      count().
+      is(10))
+
+// Good
+g.V().hasLabel('movie').
+      as('a','b').
+      where(
+        inE('rated').
+        count().
+        is(10))
 ```
