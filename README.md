@@ -84,3 +84,26 @@ g.V().hasLabel('movie').
         count().
         is(10))
 ```
+
+### Place all trailing parentheses on a single line instead of distinct lines
+
+```Java
+// Bad
+g.V().hasLabel('movie').
+      by(
+        inE('rated').
+        values('stars').
+        mean()
+      ).
+      order().
+      limit(10)
+
+// Good
+g.V().hasLabel('movie').
+      by(
+        inE('rated').
+        values('stars').
+        mean()).
+      order().
+      limit(10)
+```
