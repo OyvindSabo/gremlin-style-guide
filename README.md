@@ -107,3 +107,17 @@ g.V().hasLabel('movie').
       order().
       limit(10)
 ```
+
+### Use `//` for single line comments. Place single line comments on a newline above the subject of the comment.
+```Java
+// Bad
+g.V().hasLabel('movie').
+      values('year'). // Find the year in which the oldest movie was produced
+      min()
+
+// Good
+g.V().hasLabel('movie').
+      // Find the year in which the oldest movie was produced
+      values('year').
+      min()
+```
