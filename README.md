@@ -9,12 +9,12 @@ A style guide for the Gremlin query language
 This ensures that your code looks the same for anyone, regardless of their text editor settings.
 ```Java
 // Bad
-g.V().label().
-      groupCount() // Indented using hard tabs
+g.V().label()
+     .groupCount() // Indented using hard tabs
 
 // Good
-g.V().label().
-∙∙∙∙∙∙groupCount() // indented using spaces
+g.V().label()
+∙∙∙∙∙.groupCount() // indented using spaces
 ```
 
 ### Vertically align unnested methods after initial node selection
@@ -23,18 +23,18 @@ g.V().label().
 g.V().hasLabel('movie').values('year').min()
 
 // Bad
-g.V().
-  hasLabel('movie').
-  values('year').
-  min()
+g.V()
+  .hasLabel('movie')
+  .values('year')
+  .min()
 
 // Good
-g.V().hasLabel('movie').
-      values('year').
-      min()
+g.V().hasLabel('movie')
+     .values('year')
+     .min()
 ```
 
-### Add linebreak after punctuation
+### Add linebreak after punctuation if the query contains nested methods
 While adding the linebreak before the punctuation looks good in most cases, it introduces alignment problems when not all lines start with a punctuation. You never know if the next line should be indented relative to the punctuation of the previous line or the method of the previous line. Adding the punctuation before the linebreak also means that you can know if you have reached the end of the query without reading the next line.
 ```Java
 // Bad
@@ -113,13 +113,55 @@ g.V().hasLabel('movie').
 ### Use `//` for single line comments. Place single line comments on a newline above the subject of the comment.
 ```Java
 // Bad
-g.V().hasLabel('movie').
-      values('year'). // Find the year in which the oldest movie was produced
-      min()
+g.V().hasLabel('movie')
+     .values('year') // Find the year in which the oldest movie was produced
+     .min()
 
 // Good
-g.V().hasLabel('movie').
-      // Find the year in which the oldest movie was produced
-      values('year').
-      min()
+g.V().hasLabel('movie')
+     // Find the year in which the oldest movie was produced
+     .values('year')
+     .min()
+```
+
+### Use single quotes for strings
+Because minimalism
+```Java
+// Bad
+g.V().hasLabel("foo")
+
+// Good
+g.V().hasLabel('foo')
+```
+
+### Write idiomatic Gremlin code
+If there is a simpler way, do it the simpler way. Use the Gremlin methods for what they're worth.
+```Java
+// Bad
+g.V().outE()
+     .inV()
+
+// Good
+g.V().out()
+
+
+// Bad
+g.V().has('name', 'alice')
+     .outE()
+     .hasLabel('bought')
+     .inV()
+     .values('name')
+
+// Good
+g.V().has('name','alice')
+     .out('bought')
+     .values('name')
+
+
+// Bad
+g.V().hasLabel('foo')
+     .has('name', 'bar')
+
+// Good
+g.V().has('foo', 'name', 'bar')
 ```
