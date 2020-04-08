@@ -192,52 +192,70 @@ g.V().
 
 ### Place all trailing parentheses on a single line instead of distinct lines
 
+Aligning the end parenthesis with the step to which the start parenthesis belongs might make it easier to check that the number of parentheses is correct, but looks ugly and wastes a lot of space.
+
 ```Java
 // Bad
-g.V().hasLabel('movie').
-      by(
-        inE('rated').
-        values('stars').
-        mean()
-      ).
-      order().
-      limit(10)
+g.V().
+  hasLabel("person").
+  groupCount().
+    by(
+      values("age").
+      choose(
+        is(lt(28)),
+        constant("young"),
+        choose(
+          is(lt(30)),
+          constant("old"),
+          constant("very old")
+        )
+      )
+    )
 
 // Good
-g.V().hasLabel('movie').
-      by(
-        inE('rated').
-        values('stars').
-        mean()).
-      order().
-      limit(10)
+g.V().
+  hasLabel("person").
+  groupCount().
+    by(
+      values("age").
+      choose(
+        is(lt(28)),
+        constant("young"),
+        choose(
+          is(lt(30)),
+          constant("old"),
+          constant("very old"))))
 ```
 
 ### Use `//` for single line comments. Place single line comments on a newline above the subject of the comment.
 
 ```Java
 // Bad
-g.V().hasLabel('movie')
-     .values('year') // Find the year in which the oldest movie was produced
-     .min()
+g.V().
+  has('name','alice').out('bought'). // Find everything that Alice has bought
+  in('bought').dedup().values('name') // Find everyone who have bought some of the same things as Alice
 
 // Good
-g.V().hasLabel('movie')
-     // Find the year in which the oldest movie was produced
-     .values('year')
-     .min()
+g.V().
+  // Find everything that Alice has bought
+  has('name','alice').out('bought').
+  // Find everyone who have bought some of the same things as Alice
+  in('bought').dedup().values('name')
 ```
 
 ### Use single quotes for strings
 
-Because minimalism
+Use single quotes for literal string values. If the string contains double quotes or single quotes, surround the string with the type of quote which creates the fewest escaped characters.
 
 ```Java
+// Good
+g.V().hasLabel("Movie").has("name", "It's a wonderful life")
+
 // Bad
-g.V().hasLabel("foo")
+g.V().hasLabel('Movie').has('name', 'It\'s a wonderful life')
 
 // Good
-g.V().hasLabel('foo')
+g.V().hasLabel('Movie').has('name', "It's a wonderful life")
 ```
 
 ### Write idiomatic Gremlin code
