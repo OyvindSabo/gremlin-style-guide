@@ -150,29 +150,44 @@ g.V().
     is(gt(1)))
 ```
 
-### Add linebreak and indentation of two spaces for nested traversals
+### Add linebreak and indentation for nested traversals which are long enough to span multiple lines
 
 ```Java
-// Bad
-g.V().hasLabel('movie').
-      as('a','b').
-      where(inE('rated').count().is(10))
+// Bad - Not newlining the first argument of a function whose arguments span over multipe lines causes the arguments to not align.
+g.V().
+  hasLabel("person").
+  groupCount().
+    by(values("age").
+      choose(is(lt(28)),
+        constant("young"),
+        choose(is(lt(30)),
+          constant("old"),
+          constant("very old"))))
 
-// Bad
-g.V().hasLabel('movie').
-      as('a','b').
-      where(
-      inE('rated').
-      count().
-      is(10))
+// Bad - We talked about this in the indentation section, didn't we?
+g.V().
+  hasLabel("person").
+  groupCount().
+    by(values("age").
+       choose(is(lt(28)),
+              constant("young"),
+              choose(is(lt(30)),
+                     constant("old"),
+                     constant("very old"))))
 
 // Good
-g.V().hasLabel('movie').
-      as('a','b').
-      where(
-        inE('rated').
-        count().
-        is(10))
+g.V().
+  hasLabel("person").
+  groupCount().
+    by(
+      values("age").
+      choose(
+        is(lt(28)),
+        constant("young"),
+        choose(
+          is(lt(30)),
+          constant("old"),
+          constant("very old"))))
 ```
 
 ### Place all trailing parentheses on a single line instead of distinct lines
