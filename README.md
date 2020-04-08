@@ -4,6 +4,20 @@ A style guide for the Gremlin query language
 
 ![Gremlint AMC Gremlin 1920x1080.png](https://cdn.steemitimages.com/DQmSYAxsBQJPxfxzA5HFXzsPSmTTQiNGoeWY143WXpjLQ4X/Gremlint%20AMC%20Gremlin%201920x1080.png)
 
+## Introduction
+
+Having written a lot of Gremlin over the past years, I've built up some preferences about how queries should be formatted to be readable and beautiful. In this guide I have tried documenting some of these preferences.
+
+One of the purposes of this style guide is to serve as guidance when working on [Gremlint](https://github.com/OyvindSabo/gremlint), a code formatter for Gremlin.
+
+I would also be happy to see it used as an arena for discussions around best practices for Gremlin query formatting. If you see a rule you don't like or would like to have added, create an issue so we can get the discussion going.:smiley:
+
+The examples used in this style guide are largely based on the [Apache TinkerPop Traversal Recipes](https://tinkerpop.apache.org/docs/current/recipes/) and the examples found in the (Apache TinkerPop Documentation)[http://tinkerpop.apache.org/docs/3.4.6/reference/], but may differ in formatting.
+
+The style guide draws inspiration from [The Clojure Style Guide](https://github.com/bbatsov/clojure-style-guide/blob/master/README.adoc), [The Cypher Style Guide](https://neo4j.com/developer/cypher-style-guide/) and of course [TinkerPop's own Gremlin style guide](https://tinkerpop.apache.org/docs/current/recipes/#style-guide).
+
+## Rules
+
 ### Use soft tabs (spaces) for indentation
 
 This ensures that your code looks the same for anyone, regardless of their text editor settings.
@@ -107,6 +121,27 @@ g.V().
     addV('person').
       property('name','marko').
       property('age',29))
+```
+
+### Keep as()-steps at the end of each line
+
+The end of the line is a natural place to assign a label to a step. It's okay if the as()-step is in the middle of the line if there are multiple consecutive label assignments, or if the line is so short that a newline doesn't make sense. Maybe a better way to put it is to not start a line with an as()-step, unless you're using it inside a match()-step of course.
+
+```java
+// Bad
+g.V().
+  as('a').
+  out('created').
+  as('b').
+  select('a','b')
+
+// Good
+g.V().as('a').
+  out('created').as('b').
+  select('a','b')
+
+// Good
+g.V().as('a').out('created').as('b').select('a','b')
 ```
 
 ### Add linebreak after punctuation, not before
@@ -248,14 +283,14 @@ g.V().
 Use single quotes for literal string values. If the string contains double quotes or single quotes, surround the string with the type of quote which creates the fewest escaped characters.
 
 ```Java
-// Good
-g.V().hasLabel("Movie").has("name", "It's a wonderful life")
+// Bad - Use single quotes where possible
+g.V().has("Movie", "name", "It's a wonderful life")
 
-// Bad
-g.V().hasLabel('Movie').has('name', 'It\'s a wonderful life')
+// Bad - Escaped single quotes are even worse than double quotes
+g.V().has('Movie', 'name', 'It\'s a wonderful life')
 
 // Good
-g.V().hasLabel('Movie').has('name', "It's a wonderful life")
+g.V().has('Movie', 'name', "It's a wonderful life")
 ```
 
 ### Write idiomatic Gremlin code
@@ -264,30 +299,28 @@ If there is a simpler way, do it the simpler way. Use the Gremlin methods for wh
 
 ```Java
 // Bad
-g.V().outE()
-     .inV()
+g.V().outE().inV()
 
 // Good
 g.V().out()
 
 
 // Bad
-g.V().has('name', 'alice')
-     .outE()
-     .hasLabel('bought')
-     .inV()
-     .values('name')
+g.V().
+  has('name', 'alice').
+  outE().hasLabel('bought').inV().
+  values('name')
 
 // Good
-g.V().has('name','alice')
-     .out('bought')
-     .values('name')
+g.V().
+  has('name','alice').
+  out('bought').
+  values('name')
 
 
 // Bad
-g.V().hasLabel('foo')
-     .has('name', 'bar')
+g.V().hasLabel('person').has('name', 'alice')
 
 // Good
-g.V().has('foo', 'name', 'bar')
+g.V().has('person', 'name', 'alice')
 ```
