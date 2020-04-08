@@ -20,7 +20,9 @@ The style guide draws inspiration from [The Clojure Style Guide](https://github.
 
 ### Break long queries into multiple lines
 
-What is considered too long depends on your application. When breaking the query, not all parts of the traversal have to be broken up. First, divide the query into logical groups, based on which steps belong naturally together. For instance, every set of steps which ends with an as-step often belong together, as they together form a new essential step in the query.
+What is considered too long depends on your application.
+
+When breaking the query, not all parts of the traversal have to be broken up. First, divide the query into logical groups, based on which steps belong naturally together. For instance, every set of steps which end with an as()-step often belong together, as they together form a new essential step in the query.
 
 If anoymous traversals are passed as arguments to another step, a filter()-step, and it's causing the line to be too long, first split the line at the commas. Only if the traversal arguments are still too long, consider splitting them further.
 
@@ -68,7 +70,7 @@ g.V().
 
 ### Use two spaces for indentation
 
-Two spaces makes the purpose of the indent clear, but does not waste too much space. Of course, more spaces are allowed when indenting from an already indented block of code.
+Two spaces makes the intent of the indent clear, but does not waste too much space. Of course, more spaces are allowed when indenting from an already indented block of code.
 
 ```Java
 // Bad - Indented using four spaces
