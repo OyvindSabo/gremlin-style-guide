@@ -26,6 +26,28 @@ g.V().
 ∙∙∙∙by(valueMap())
 ```
 
+### Use two spaces for indentation
+
+Two spaces makes the purpose of the indent clear, but does not waste too much space. Of course, more spaces are allowed when indenting from an already indented block of code.
+
+```Java
+// Bad - Indented using four spaces
+g.V().
+    hasLabel('person').as('person').
+    properties('location').as('location').
+    select('person','location').
+        by('name').
+        by(valueMap())
+
+// Good - Indented using two spaces
+g.V().
+  hasLabel('person').as('person').
+  properties('location').as('location').
+  select('person','location').
+    by('name').
+    by(valueMap())
+```
+
 ### Vertically align unnested methods after initial node selection
 
 ```Java
