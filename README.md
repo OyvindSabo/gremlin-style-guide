@@ -48,22 +48,65 @@ g.V().
     by(valueMap())
 ```
 
-### Vertically align unnested methods after initial node selection
+### Use indents wisely
+
+- No newline should ever have the same indent as the line starting with the traversal source g.
+- Use indents when the step in the new line is a modulator of a previous line.
+- Use indents when the content in the new line is an argument of a previous step.
+- If multiple anonymous traversals are passed as arguments to a function, each newline which is not the first of line of the step should be indented to make it more clear where the distinction between each argument goes. If this is the case, but the newline would already be indented because the step in the content in the new line is the argument of a previous step, there is no need to double-indent.
+- Don't be tempted to add extra indentation to vertically align a step with a step in a previous line.
 
 ```Java
-// Bad
-g.V().hasLabel('movie').values('year').min()
+// Bad - No newline should have the same indent as the line starting with the traversal source g
+g.V().
+group().
+by().
+by(bothE().count())
 
-// Bad
-g.V()
-  .hasLabel('movie')
-  .values('year')
-  .min()
+// Bad - Modulators of a step on a previous line should be indented
+g.V().
+  group().
+  by().
+  by(bothE().count())
 
 // Good
-g.V().hasLabel('movie')
-     .values('year')
-     .min()
+g.V().
+  group().
+    by().
+    by(bothE().count())
+
+// Bad - You have ignored the indent rules to achieve the temporary satisfaction of vertical alignment
+g.V().local(union(identity(),
+                  bothE().count()).
+            fold())
+
+// Good
+g.V().
+  local(
+    union(
+      identity(),
+      bothE().count()).
+    fold())
+
+// Bad - When multiple anonymous traversals are passed as arguments to a function, each newline which is not the first of line of the step should be indented to make it more clear where the distinction between each argument goes.
+g.V().
+  has('person','name','marko').
+  fold().
+  coalesce(
+    unfold(),
+    addV('person').
+    property('name','marko').
+    property('age',29))
+
+// Good - We make it clear that the coalesce step takes two traversals as arguments
+g.V().
+  has('person','name','marko').
+  fold().
+  coalesce(
+    unfold(),
+    addV('person').
+      property('name','marko').
+      property('age',29))
 ```
 
 ### Add linebreak after punctuation if the query contains nested methods
