@@ -109,38 +109,48 @@ g.V().
       property('age',29))
 ```
 
-### Add linebreak after punctuation if the query contains nested methods
+### Add linebreak after punctuation, not before
 
-While adding the linebreak before the punctuation looks good in most cases, it introduces alignment problems when not all lines start with a punctuation. You never know if the next line should be indented relative to the punctuation of the previous line or the method of the previous line. Adding the punctuation before the linebreak also means that you can know if you have reached the end of the query without reading the next line.
+While adding the linebreak before the punctuation looks good in most cases, it introduces alignment problems when not all lines start with a punctuation. You never know if the next line should be indented relative to the punctuation of the previous line or the method of the previous line. Switching between having the punctuation at the start or the end of the line depending on whether it orks in a particular case requires much brainpower (which we don't have), so it's better to be consistent. Adding the punctuation before the linebreak also means that you can know if you have reached the end of the query without reading the next line.
 
 ```Java
-// Bad
-g.V().by(
-       inE('category')
-       .count())
-
-// Bad
-g.V().by(
-       inE('category')
-      .count())
-
-// Bad
-g.V().by(
-        inE('category')
-        .count())
-
-// Bad
-g.V().by(
-        inE('category')
-       .count())
+// Bad - Looks okay, though
+g.V().has('name','marko')
+     .out('knows')
+     .has('age', gt(29))
+     .values('name')
 
 // Good
-g.V().by(
-        inE('category').
-        count())
+g.V().
+  has('name','marko').
+  out('knows').
+  has('age', gt(29)).
+  values('name')
+
+// Bad - Punctuation at the start of the line makes the transition from filter to select to count too smooth
+g.V()
+  .hasLabel("person")
+  .group()
+    .by(values("name", "age").fold())
+  .unfold()
+  .filter(
+    select(values)
+    .count(local)
+    .is(gt(1)))
+
+// Good - Keeping punctuation at the end of each line, more clearly shows the query structure
+g.V().
+  hasLabel("person").
+  group().
+    by(values("name", "age").fold()).
+  unfold().
+  filter(
+    select(values).
+    count(local).
+    is(gt(1)))
 ```
 
-### Add linebreak and indentation of two spaces for nested methods
+### Add linebreak and indentation of two spaces for nested traversals
 
 ```Java
 // Bad
