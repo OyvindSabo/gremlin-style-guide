@@ -174,7 +174,7 @@ g.V().as('a').out('created').as('b').select('a','b')
 
 ### Add linebreak after punctuation, not before
 
-While adding the linebreak before the punctuation looks good in most cases, it introduces alignment problems when not all lines start with a punctuation. You never know if the next line should be indented relative to the punctuation of the previous line or the method of the previous line. Switching between having the punctuation at the start or the end of the line depending on whether it orks in a particular case requires much brainpower (which we don't have), so it's better to be consistent. Adding the punctuation before the linebreak also means that you can know if you have reached the end of the query without reading the next line.
+While adding the linebreak before the punctuation looks good in most cases, it introduces alignment problems when not all lines start with a punctuation. You never know if the next line should be indented relative to the punctuation of the previous line or the method of the previous line. Switching between having the punctuation at the start or the end of the line depending on whether it works in a particular case requires much brainpower (which we don't have), so it's better to be consistent. Adding the punctuation before the linebreak also means that you can know if you have reached the end of the query without reading the next line.
 
 ```Java
 // Bad - Looks okay, though
