@@ -1,6 +1,6 @@
 # The Gremlin Style Guide
 
-A style guide for the Gremlin query language
+An unofficial style guide for the Gremlin query language
 
 ![Gremlint AMC Gremlin 1920x1080.png](https://cdn.steemitimages.com/DQmSYAxsBQJPxfxzA5HFXzsPSmTTQiNGoeWY143WXpjLQ4X/Gremlint%20AMC%20Gremlin%201920x1080.png)
 
