@@ -12,7 +12,7 @@ One of the purposes of this style guide is to serve as guidance when working on 
 
 I would also be happy to see it used as an arena for discussions around best practices for Gremlin query formatting. If you see a rule you don't like or would like to have added, create an issue so we can get the discussion going.:smiley:
 
-The examples used in this style guide are largely based on the [Apache TinkerPop Traversal Recipes](https://tinkerpop.apache.org/docs/current/recipes/) and the examples found in the (Apache TinkerPop Documentation)[http://tinkerpop.apache.org/docs/3.4.6/reference/], but may differ in formatting.
+The examples used in this style guide are largely based on the [Apache TinkerPop Traversal Recipes](https://tinkerpop.apache.org/docs/current/recipes/) and the examples found in the [Apache TinkerPop Documentation](http://tinkerpop.apache.org/docs/3.4.6/reference/), but may differ in formatting.
 
 The style guide draws inspiration from [The Clojure Style Guide](https://github.com/bbatsov/clojure-style-guide/blob/master/README.adoc), [The Cypher Style Guide](https://neo4j.com/developer/cypher-style-guide/) and of course [TinkerPop's own Gremlin style guide](https://tinkerpop.apache.org/docs/current/recipes/#style-guide).
 
